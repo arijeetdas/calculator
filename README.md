@@ -1,6 +1,7 @@
 # Calculator 🧮
 
 A modern, minimal calculator app built with Flutter for Android devices.
+> **Current Version:** v1.0.1
 
 ## ✨ Features
 - Clean and modern UI
