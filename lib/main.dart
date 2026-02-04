@@ -175,10 +175,18 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   String _evaluate(String exp) {
     exp = exp.replaceAll('×', '*').replaceAll('÷', '/');
-    final tokens = RegExp(r'(-?\d+\.?\d*)|[+\-*/%()]')
-        .allMatches(exp)
-        .map((m) => m.group(0)!)
-        .toList();
+    final tokens = RegExp(r'\d+\.?\d*|[+\-*/%()]')
+    .allMatches(exp)
+    .map((m) => m.group(0)!)
+    .toList();
+
+    for (int i = 0; i < tokens.length; i++) {
+  if (tokens[i] == '-' &&
+      (i == 0 || '+-*/%('.contains(tokens[i - 1]))) {
+    tokens.insert(i, '0');
+    i++;
+  }
+}
 
     final output = <String>[];
     final stack = <String>[];
@@ -437,7 +445,7 @@ The Calculator App is a product of Vibe Labs ⚡ and can be downloaded exclusive
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            const Text('v1.0.0'),
+            const Text('v1.0.1'),
 
             const SizedBox(height: 24),
 
@@ -450,7 +458,7 @@ The Calculator App is a product of Vibe Labs ⚡ and can be downloaded exclusive
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text('• Initial Release'),
+            const Text('• Fixed subtraction bug without brackets'),
 
             const SizedBox(height: 32),
 
